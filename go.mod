@@ -1,4 +1,4 @@
-module github.com/cert-manager/webhook-example
+module cert-manager-webhook-active24cz
 
 go 1.24.0
 
