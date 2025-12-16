@@ -5,8 +5,6 @@ ARCH ?= $(shell $(GO) env GOARCH)
 IMAGE_NAME := "webhook"
 IMAGE_TAG := "latest"
 
-OUT := $(shell pwd)/_out
-
 KUBEBUILDER_VERSION=v1.34.1
 
 HELM_FILES := $(shell find chart/)
@@ -25,21 +23,21 @@ _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH)/etcd _test/kubebuilder-$(
 
 .PHONY: clean
 clean:
-	rm -r _test $(OUT)
+	rm -rf _out _test
 
 .PHONY: build
 build:
 	docker build -t "$(IMAGE_NAME):$(IMAGE_TAG)" .
 
 .PHONY: rendered-manifest.yaml
-rendered-manifest.yaml: $(OUT)/rendered-manifest.yaml
+rendered-manifest.yaml: _out/rendered-manifest.yaml
 
-$(OUT)/rendered-manifest.yaml: $(HELM_FILES) | $(OUT)
+_out/rendered-manifest.yaml: $(HELM_FILES) | _out
 	helm template \
 	    --name example-webhook \
             --set image.repository=$(IMAGE_NAME) \
             --set image.tag=$(IMAGE_TAG) \
 		chart/ > $@
 
-_test $(OUT) _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH):
+_out _test _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH):
 	mkdir -p $@
