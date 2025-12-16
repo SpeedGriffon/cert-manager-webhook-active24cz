@@ -33,10 +33,10 @@ build:
 rendered-manifest.yaml: _out/rendered-manifest.yaml
 
 _out/rendered-manifest.yaml: $(HELM_FILES) | _out
-	helm template \
-	    --name example-webhook \
-            --set image.repository=$(IMAGE_NAME) \
-            --set image.tag=$(IMAGE_TAG) \
+	helm -n cert-manager template \
+		cert-manager-webhook-active24cz \
+		--set image.repository=$(IMAGE_NAME) \
+		--set image.tag=$(IMAGE_TAG) \
 		chart/ > $@
 
 _out _test _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH):
