@@ -7,7 +7,7 @@ IMAGE_TAG := "latest"
 
 OUT := $(shell pwd)/_out
 
-KUBEBUILDER_VERSION=1.28.0
+KUBEBUILDER_VERSION=v1.34.1
 
 HELM_FILES := $(shell find chart/)
 
@@ -18,10 +18,10 @@ test: _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH)/etcd _test/kubebuil
 	$(GO) test -v .
 
 _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH).tar.gz: | _test
-	curl -fsSL https://go.kubebuilder.io/test-tools/$(KUBEBUILDER_VERSION)/$(OS)/$(ARCH) -o $@
+	curl -fsSL https://github.com/kubernetes-sigs/controller-tools/releases/download/envtest-$(KUBEBUILDER_VERSION)/envtest-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH).tar.gz -o $@
 
 _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH)/etcd _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH)/kube-apiserver _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH)/kubectl: _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH).tar.gz | _test/kubebuilder-$(KUBEBUILDER_VERSION)-$(OS)-$(ARCH)
-	tar xfO $< kubebuilder/bin/$(notdir $@) > $@ && chmod +x $@
+	tar xfO $< controller-tools/envtest/$(notdir $@) > $@ && chmod +x $@
 
 .PHONY: clean
 clean:
