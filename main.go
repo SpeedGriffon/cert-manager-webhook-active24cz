@@ -151,7 +151,7 @@ func loadConfig(cfgJSON *extev1.JSON) (active24czConfig, error) {
 		return cfg, nil
 	}
 	if err := json.Unmarshal(cfgJSON.Raw, &cfg); err != nil {
-		return cfg, fmt.Errorf("error decoding solver config: %v", err)
+		return cfg, fmt.Errorf("failed to unmarshal solver config: %w", err)
 	}
 
 	return cfg, nil
