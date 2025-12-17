@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/url"
 	"strings"
 	"time"
 
@@ -95,17 +94,12 @@ func (c *Client) ApiUrl(id *int) string {
 }
 
 // Get a signature hash.
-func signatureHash(method string, rawUrl string, secret string, time int64) (string, error) {
-	parsedUrl, err := url.Parse(rawUrl)
-	if err != nil {
-		return "", fmt.Errorf("failed to parse url '%s': %w", rawUrl, err)
-	}
-
+func signatureHash(secret string, method string, path string, time int64) string {
 	h := hmac.New(sha1.New, []byte(secret))
-	fmt.Fprintf(h, "%s %s %d", method, parsedUrl.Path, time)
 
-	signature := fmt.Sprintf("%x", h.Sum(nil))
-	return signature, nil
+	fmt.Fprintf(h, "%s %s %d", method, path, time)
+
+	return fmt.Sprintf("%x", h.Sum(nil))
 }
 
 // Create a new HTTP request.
@@ -117,10 +111,7 @@ func (c *Client) newRequest(method string, url string, data []byte) (*http.Reque
 
 	timestamp := time.Now().UTC()
 
-	signature, err := signatureHash(method, url, c.Config.ApiSecret, timestamp.Unix())
-	if err != nil {
-		return nil, err
-	}
+	signature := signatureHash(c.Config.ApiSecret, method, req.URL.Path, timestamp.Unix())
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
