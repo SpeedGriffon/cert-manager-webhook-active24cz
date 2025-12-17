@@ -16,8 +16,8 @@ certManager:
 
 image:
   repository: mycompany/webhook-image
-  tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
+  tag: ""
 
 nameOverride: ""
 fullnameOverride: ""
