@@ -161,7 +161,7 @@ func (c *Client) FindRecords(record *DnsRecord) ([]DnsRecordWithId, error) {
 	records := DnsRecords{}
 	err = json.Unmarshal(resp, &records)
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse api response: %w", err)
+		return nil, fmt.Errorf("failed to unmarshal api response %s: %w", resp, err)
 	}
 
 	return records.Data, nil
@@ -186,7 +186,7 @@ func (c *Client) GetRecordId(record *DnsRecord) (*int, error) {
 		}
 	}
 
-	return nil, fmt.Errorf("found unexpected records: %v", foundRecords)
+	return nil, fmt.Errorf("expected record %v, found %v", record, foundRecords)
 }
 
 // Create a DNS record.
