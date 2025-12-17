@@ -3,10 +3,11 @@ package main
 import (
 	"os"
 	"testing"
+	"time"
 
-	acmetest "github.com/cert-manager/cert-manager/test/acme"
-
-	"github.com/cert-manager/webhook-example/example"
+	test "github.com/cert-manager/cert-manager/test/acme"
+	"k8s.io/klog/v2"
+	"sigs.k8s.io/controller-runtime/pkg/log"
 )
 
 var (
@@ -17,25 +18,16 @@ func TestRunsSuite(t *testing.T) {
 	// The manifest path should contain a file named config.json that is a
 	// snippet of valid configuration that should be included on the
 	// ChallengeRequest passed as part of the test cases.
-	//
 
-	// Uncomment the below fixture when implementing your custom DNS provider
-	//fixture := acmetest.NewFixture(&customDNSProviderSolver{},
-	//	acmetest.SetResolvedZone(zone),
-	//	acmetest.SetAllowAmbientCredentials(false),
-	//	acmetest.SetManifestPath("testdata/my-custom-solver"),
-	//	acmetest.SetBinariesPath("_test/kubebuilder/bin"),
-	//)
-	solver := example.New("59351")
-	fixture := acmetest.NewFixture(solver,
-		acmetest.SetResolvedZone("example.com."),
-		acmetest.SetManifestPath("testdata/my-custom-solver"),
-		acmetest.SetDNSServer("127.0.0.1:59351"),
-		acmetest.SetUseAuthoritative(false),
+	log.SetLogger(klog.NewKlogr())
+
+	fixture := test.NewFixture(&active24czSolver{},
+		test.SetResolvedZone(zone),
+		test.SetStrict(true),
+		test.SetPropagationLimit(time.Minute*10),
+		test.SetPollInterval(time.Second*15),
+		test.SetManifestPath("testdata"),
 	)
-	//need to uncomment and  RunConformance delete runBasic and runExtended once https://github.com/cert-manager/cert-manager/pull/4835 is merged
-	//fixture.RunConformance(t)
-	fixture.RunBasic(t)
-	fixture.RunExtended(t)
 
+	fixture.RunConformance(t)
 }
