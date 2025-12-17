@@ -1,0 +1,5 @@
+{
+  "apiKeySecretRef": {
+    "name":  "active24cz"
+  }
+}
