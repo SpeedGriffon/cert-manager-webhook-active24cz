@@ -5,7 +5,7 @@ ARCH ?= $(shell $(GO) env GOARCH)
 IMAGE_NAME := "webhook"
 IMAGE_TAG := "latest"
 
-KUBEBUILDER_VERSION=v1.34.1
+KUBEBUILDER_VERSION=v1.35.0
 
 HELM_FILES := $(shell find chart/)
 
