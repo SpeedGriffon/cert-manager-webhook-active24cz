@@ -15,7 +15,7 @@ certManager:
   serviceAccountName: cert-manager
 
 image:
-  repository: mycompany/webhook-image
+  repository: ghcr.io/speedgriffon/cert-manager-webhook-active24cz
   pullPolicy: Always
   tag: ""
 
