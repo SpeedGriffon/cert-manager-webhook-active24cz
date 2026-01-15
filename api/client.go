@@ -97,7 +97,7 @@ func (c *Client) ApiUrl(id *int) string {
 func signatureHash(secret string, method string, path string, time int64) string {
 	h := hmac.New(sha1.New, []byte(secret))
 
-	fmt.Fprintf(h, "%s %s %d", method, path, time)
+	_, _ = fmt.Fprintf(h, "%s %s %d", method, path, time)
 
 	return fmt.Sprintf("%x", h.Sum(nil))
 }
@@ -133,7 +133,8 @@ func (c *Client) Request(method string, id *int, data []byte) ([]byte, error) {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
