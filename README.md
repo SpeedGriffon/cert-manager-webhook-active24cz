@@ -5,13 +5,12 @@
 - Inspired by
 [`websupport`](https://github.com/bratislava/cert-manager-webhook-websupport)
 and [`active24`](https://github.com/rkosegi/cert-manager-webhook-active24) webhooks
-- Developed at [Merica s.r.o.](https://merica.cz/cs/)
+- Developed at [Merica s.r.o.](https://merica.cz)
 
 ## Usage
 1. Install the [chart](chart/)
 ```bash
-helm -n cert-manager upgrade -i \
-  cert-manager-webhook-active24cz chart/
+helm -n cert-manager upgrade -i cert-manager-webhook-active24cz chart/
 ```
 
 2. Create a secret with your credentials
