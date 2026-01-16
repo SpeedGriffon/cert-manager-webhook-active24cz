@@ -1,3 +1,5 @@
+-include local.mk
+
 GO ?= $(shell which go)
 OS ?= $(shell $(GO) env GOOS)
 ARCH ?= $(shell $(GO) env GOARCH)

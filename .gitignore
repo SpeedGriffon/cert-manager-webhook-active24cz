@@ -17,3 +17,4 @@ cert-manager-webhook-active24cz
 # Make artifacts
 _out
 _test
+local.mk
