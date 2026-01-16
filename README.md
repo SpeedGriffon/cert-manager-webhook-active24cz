@@ -1,7 +1,7 @@
 # cert-manager-webhook-active24cz
 - For [cert-manager](https://cert-manager.io/docs/)
 - Using [Active24](https://rest.active24.cz/v2/docs) /
-[Websupport REST API v2.0](https://rest.websupport.sk/v2/docs).
+[Websupport REST API v2.0](https://rest.websupport.sk/v2/docs)
 - Inspired by
 [`websupport`](https://github.com/bratislava/cert-manager-webhook-websupport)
 and [`active24`](https://github.com/rkosegi/cert-manager-webhook-active24) webhooks
