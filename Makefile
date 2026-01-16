@@ -31,6 +31,18 @@ clean:
 build:
 	sudo docker build -t $(IMAGE_NAME):$(IMAGE_TAG) .
 
+.PHONY: push
+push:
+	sudo docker push $(IMAGE_NAME):$(IMAGE_TAG)
+
+.PHONY: install
+install: $(HELM_FILES)
+	helm -n cert-manager upgrade -i \
+		cert-manager-webhook-active24cz \
+		--set image.repository=$(IMAGE_NAME) \
+		--set image.tag=$(IMAGE_TAG) \
+		chart/
+
 .PHONY: rendered-manifest.yaml
 rendered-manifest.yaml: _out/rendered-manifest.yaml
 
