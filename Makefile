@@ -4,8 +4,8 @@ GO ?= $(shell which go)
 OS ?= $(shell $(GO) env GOOS)
 ARCH ?= $(shell $(GO) env GOARCH)
 
-IMAGE_NAME := "webhook"
-IMAGE_TAG := "latest"
+IMAGE_NAME ?= cert-manager-webhook-active24cz
+IMAGE_TAG ?= latest
 
 KUBEBUILDER_VERSION=v1.35.0
 
