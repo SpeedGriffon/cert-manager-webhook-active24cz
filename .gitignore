@@ -17,4 +17,7 @@ cert-manager-webhook-active24cz
 # Make artifacts
 _out
 _test
+
+# Local files
 local.mk
+testdata/secret.yaml
