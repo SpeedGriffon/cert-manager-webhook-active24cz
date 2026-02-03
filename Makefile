@@ -29,7 +29,7 @@ clean:
 
 .PHONY: build
 build:
-	sudo docker build -t $(IMAGE_NAME):$(IMAGE_TAG) .
+	sudo docker build --pull -t $(IMAGE_NAME):$(IMAGE_TAG) .
 
 .PHONY: push
 push:
