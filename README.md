@@ -34,16 +34,16 @@ spec:
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
-    - selector:
-        dnsZones:
-          - your.tld
-      dns01:
-        webhook:
-          groupName: acme.merica.cz
-          solverName: active24cz
-          config:
-            apiKeySecretRef:
-              name: active24cz
+      - selector:
+          dnsZones:
+            - your.tld
+        dns01:
+          webhook:
+            groupName: acme.merica.cz
+            solverName: active24cz
+            config:
+              apiKeySecretRef:
+                name: active24cz
 ```
 
 ## Testing
