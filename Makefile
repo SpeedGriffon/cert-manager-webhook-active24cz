@@ -43,6 +43,10 @@ install: $(HELM_FILES)
 		--set image.tag=$(IMAGE_TAG) \
 		chart/
 
+.PHONY: restart
+restart:
+	kubectl -n cert-manager rollout restart deployment cert-manager-webhook-active24cz
+
 .PHONY: rendered-manifest.yaml
 rendered-manifest.yaml: _out/rendered-manifest.yaml
 
