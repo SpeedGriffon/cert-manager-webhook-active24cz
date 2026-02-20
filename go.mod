@@ -1,6 +1,6 @@
 module cert-manager-webhook-active24cz
 
-go 1.25.7
+go 1.26.0
 
 require (
 	github.com/cert-manager/cert-manager v1.19.3
