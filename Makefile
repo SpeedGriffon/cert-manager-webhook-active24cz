@@ -7,7 +7,7 @@ ARCH ?= $(shell $(GO) env GOARCH)
 IMAGE_NAME ?= cert-manager-webhook-active24cz
 IMAGE_TAG ?= latest
 
-KUBEBUILDER_VERSION=v1.35.0
+KUBEBUILDER_VERSION=v1.36.2
 
 HELM_FILES := $(shell find chart/)
 
